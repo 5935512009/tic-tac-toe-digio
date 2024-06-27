@@ -1,9 +1,9 @@
 ﻿# tic-tac-toe-digio
-###เริ่ม project
-frontend
+##เริ่ม project
+###frontend
   - ReactJS
-backend
+###backend
   - NodeJS
   - express
-database
+###database
   - MongoDB
