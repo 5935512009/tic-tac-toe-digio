@@ -1,3 +1,13 @@
 
-  
-  
+.TictactoeInputTest-board{
+    display: flex;
+    flex-direction: column;
+}
+
+.board-row{
+    display: flex;
+}
+.square{
+    display: flex;
+    justify-content: center;
+}
