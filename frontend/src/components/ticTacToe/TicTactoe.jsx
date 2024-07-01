@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import './tictactoe.css'
+import TictactoeInputTest from './TictactoeInputTest'
 function Square({value, onSquareClick}){
     
      return <button className="square" onClick={onSquareClick} >{value}</button>
@@ -15,7 +16,15 @@ export default function TicTactoe() {
     }else{
         status ="Next player: "+ (xIsNext?"x":"O");
     }
-
+    //--------------------test set boardSide---------------------------//
+    // const boardSide = 4;
+    // if(boardSide){
+    //     for(let i=0;i<boardSide;i++){
+    //         for(let j=0;j<boardSide;j++){
+    //             console.log(`Processing cell (${i}, ${j})`);
+    //         }
+    //     }
+    // }
 
     function handleClick(i){
         if(square[i] || calculateWinner(square)){
@@ -51,6 +60,10 @@ export default function TicTactoe() {
             <Square value={square[8]} onSquareClick={() => handleClick(8)}/>
         </div>
 
+
+    <div className="tictactoe">
+        <TictactoeInputTest/>
+    </div>
 
     </div>
   )
