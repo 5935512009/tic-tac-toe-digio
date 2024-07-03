@@ -6,7 +6,7 @@ export default function TictactoeInputTest() {
 
     const [boardSide,setBoardSide] = useState(3);
     const [board,setBoard] = useState([]);
-
+    const [xIsNext, setXIsNext] = useState(true);
 
 //----------------------รับค่าจาก input มา หลังจากนั้นเอาเข้า function setBoardSide -------------------------//    
     const handleInputChange = (event) =>{
@@ -35,8 +35,15 @@ const handleSquareClick = (rowIndex,colIndex)=>{
         row.map((square,j)=>{
             if( i===rowIndex && j===colIndex && !square.value) // i===rowIndex ดู index i เป็นตัวแปรชนิดเดียวกับ rowIndex ใหม , j===colIndex ดู index j เป็นตัวแปรชนิดเดียวกับ colIndex ใหม , !square.value  เช็คว่าช่องนั้นๆ ว่างอยู่หรือไม่ก่อนที่เปลี่ยนค่าในช่องนั้น
             {
-                return {...square, value:'O'}; // set ค่า value
+                if(xIsNext){
+                    return {...square, value:'O'}; // set ค่า value
+                }
+                else{
+                    return {...square, value:'X'}; // set ค่า value
+                }
+                
             }
+            setXIsNext(!xIsNext);
             return square;
         })
     );
