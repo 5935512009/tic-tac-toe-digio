@@ -28,10 +28,12 @@ export default function TictactoeInputTest() {
             }
          }
          setBoard(newBoard); // เก็บค่า newBoard ในตัวแปร board
+         setWinner(null); // เมื่อกด reset เก็บ set winner เป็น null เพื่อเริ่ม loop ใหม่
     }
 //------------------------------------------------------//
 //---------------------*row แนวนอน i | col แนวตั้งเทียบ j--------------------------//
 const handleSquareClick = (rowIndex,colIndex)=>{
+    if (board[rowIndex][colIndex].value || winner) return; // หาก board ตำแหน่งที่ [i,j] มี value หรือ winner ไม่เท่ากับ null จะทำการ return เพื่อไม่ให้ใส่ค่าเพิ่ม
     const newBoard = board.map((row,i)=>
         row.map((square,j)=>{
             if( i===rowIndex && j===colIndex && !square.value) // i===rowIndex ดู index i เป็นตัวแปรชนิดเดียวกับ rowIndex ใหม , j===colIndex ดู index j เป็นตัวแปรชนิดเดียวกับ colIndex ใหม , !square.value  เช็คว่าช่องนั้นๆ ว่างอยู่หรือไม่ก่อนที่เปลี่ยนค่าในช่องนั้น
@@ -49,9 +51,10 @@ const handleSquareClick = (rowIndex,colIndex)=>{
     
         // Check rows, columns, and diagonals for a win
         if (checkWinner(newBoard, currentPlayer)) {
-        
+            // checkWinner เป็น true เมื่อไรจะืำการ setWinner เพื่อหยุดเกมส์
             setWinner(currentPlayer);
         }else {
+            // เปลี่ยน Current player เมื่อเงื่อนไขแรกไม่เป็นจริง
             setCurrentPlayer(currentPlayer === 'X' ? 'O' : 'X');
           }
           
@@ -72,6 +75,15 @@ const checkWinner = (board,player) => {
             return true;
         }   
     }
+        // check เงื่อนไข row กับเลข index ในที่นี้คือ j เพื่อตรวจสอบว่า value เป็นค่าเดียวกับใหม เพื่อหาค่ามุมทะแยงจากด้านซ้ายไปขวา
+        if(board.every((row,index)=>row[index].value === player)){
+            return true;
+        }
+        // check เงื่อนไข row จากขวาไปซ้าย
+        // boardSide - 1 คือ  index ของคอลัมน์สุดท้าย เช่น [0,0] [0,1] [0,2] ในที่นี้คือ 2
+        if(board.every((row,index)=>row[boardSide - 1 - index ].value=== player)){
+            return true;
+        }
 
     return false;
 }
@@ -98,7 +110,8 @@ const checkWinner = (board,player) => {
             </div>
         ))}
       </div>
-        <div>{winner}</div>
+        <div>{winner&& <div>winner is {winner}</div>}</div> 
+        {/* จะทำงานเพื่อ winner เปลี่ยนค่า */}
     </div>
   )
 }
