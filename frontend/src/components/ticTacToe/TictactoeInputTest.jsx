@@ -30,6 +30,7 @@ export default function TictactoeInputTest() {
          setBoard(newBoard); // เก็บค่า newBoard ในตัวแปร board
     }
 //------------------------------------------------------//
+//---------------------*row แนวนอน i | col แนวตั้งเทียบ j--------------------------//
 const handleSquareClick = (rowIndex,colIndex)=>{
     const newBoard = board.map((row,i)=>
         row.map((square,j)=>{
@@ -38,7 +39,6 @@ const handleSquareClick = (rowIndex,colIndex)=>{
                 if(i===rowIndex && j===colIndex){
                     return {...square, value: currentPlayer }; // set ค่า value
                 }
-                
             }
             return square;
             
@@ -58,16 +58,21 @@ const handleSquareClick = (rowIndex,colIndex)=>{
     
     
 }
+
 const checkWinner = (board,player) => {
+    // loop ตามขนาด board
     for(let i=0;i<boardSide;i++){
-        // ถ้าเข้าเงื่อนไขว่า
-        if(board){
-            if(player){
-                return true;
-            }
+        
+        // check ว่า value ตามแถวแนวนอน ว่ามี player เป็นตัวเดียวกันใหมถ้าใช้จะ return ture เพื่อ setWinner 
+        if(board[i].every(square => square.value === player )){
+            return true;
         }
-        return true;
+        // check ว่า value ตามแถวแนวตั้ง ว่ามี player เป็นตัวเดียวกันใหมถ้าใช้จะ return ture เพื่อ setWinner 
+        if(board.every(row =>row[i].value === player)){
+            return true;
+        }   
     }
+
     return false;
 }
     function Square({value, onClick}){
