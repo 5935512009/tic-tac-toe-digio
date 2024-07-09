@@ -7,6 +7,7 @@ export default function TictactoeInputTest() {
     const [boardSide,setBoardSide] = useState(3);
     const [board,setBoard] = useState([]);
     const [currentPlayer, setCurrentPlayer] = useState('X');
+    const [winner,setWinner] = useState(null);
 //----------------------รับค่าจาก input มา หลังจากนั้นเอาเข้า function setBoardSide -------------------------//    
     const handleInputChange = (event) =>{
         setBoardSide(event.target.value);
@@ -40,13 +41,35 @@ const handleSquareClick = (rowIndex,colIndex)=>{
                 
             }
             return square;
+            
         })
+        
     );
     setBoard(newBoard);
-    setCurrentPlayer(currentPlayer === 'X' ? 'O':'X')
+    
+        // Check rows, columns, and diagonals for a win
+        if (checkWinner(newBoard, currentPlayer)) {
+        
+            setWinner(currentPlayer);
+        }else {
+            setCurrentPlayer(currentPlayer === 'X' ? 'O' : 'X');
+          }
+          
+    
     
 }
-
+const checkWinner = (board,player) => {
+    for(let i=0;i<boardSide;i++){
+        // ถ้าเข้าเงื่อนไขว่า
+        if(board){
+            if(player){
+                return true;
+            }
+        }
+        return true;
+    }
+    return false;
+}
     function Square({value, onClick}){
     
         return <button className="square" onClick={onClick}>{value}</button> // แสดงค่า x,o
@@ -70,7 +93,7 @@ const handleSquareClick = (rowIndex,colIndex)=>{
             </div>
         ))}
       </div>
-        
+        <div>{winner}</div>
     </div>
   )
 }
