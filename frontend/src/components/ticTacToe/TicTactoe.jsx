@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import './tictactoe.css'
 import TictactoeInputTest from './TictactoeInputTest'
 import TictactoeRoundList from './TictactoeRoundList';
+import TictactoeRoundReplay from './TictactoeRoundReplay';
 function Square({value, onSquareClick}){
     
      return <button className="square" onClick={onSquareClick} >{value}</button>
@@ -65,6 +66,7 @@ export default function TicTactoe() {
     <div className="tictactoe">
         <TictactoeInputTest/>
     </div>
+        <TictactoeRoundReplay/>
         <TictactoeRoundList/>
     </div>
   )
