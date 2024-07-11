@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-    origin:['http://localhost:4001'],
+    origin:['http://localhost:3000'],
     methods:['GET'],
     condentails:true,
 }));
@@ -47,7 +47,7 @@ app.get('/api/test',async(req,res)=>{
 
 app.get('/api/Round', async (req,res)=>{
     try{
-        const Rounds = await Round.find();
+        const Rounds = await Round.find().sort({ RoundId: -1 });
         res.json(Rounds);
     }catch(error){
         res.status(500).json({message : error.message});
